@@ -399,8 +399,33 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const mas = [];
+  for (let i = 0; i < matrix.length; i += 1) {
+    mas[i] = matrix[i];
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      mas[i][j] = matrix[i][j];
+    }
+  }
+
+  const size = mas.length;
+  for (let layer = 0; layer < size / 2; layer += 1) {
+    const first = layer;
+    const last = size - 1 - layer;
+    for (let i = first; i < last; i += 1) {
+      const offset = i - first;
+      const top = matrix[first][i];
+
+      mas[first][i] = mas[last - offset][first];
+
+      mas[last - offset][first] = mas[last][last - offset];
+
+      mas[last][last - offset] = mas[i][last];
+
+      mas[i][last] = top;
+    }
+  }
+  return mas;
 }
 
 /**
@@ -417,6 +442,7 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
+
 function sortByAsc(/* arr */) {
   throw new Error('Not implemented');
 }
@@ -438,6 +464,7 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
+
 function shuffleChar(/* str, iterations */) {
   throw new Error('Not implemented');
 }
